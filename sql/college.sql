@@ -1,6 +1,4 @@
 -- Database Name ComputerScience
-DROP DATABASE ComputerScience;
-
 CREATE DATABASE ComputerScience;
 
 -- Path: sql/college.sql
