@@ -3,14 +3,16 @@ import React, { useState } from "react";
 import { userDetailsType } from "@/types/userDetails";
 import axios from "axios";
 const intial: userDetailsType = {
-  id: "",
+  first_name: "",
+  last_name: "",
   email: "",
-  username: "",
   password: "",
-  classname: "First",
-  department: "CS",
   role: "student",
-  tablename: "FirstCSI",
+  admission_number: "",
+  grade_level: "",
+  date_of_birth: "",
+  employee_id: "",
+  department: "",
 };
 function Signup() {
   const [user, setUser] = useState<userDetailsType>(intial);
@@ -27,126 +29,86 @@ function Signup() {
     }
 
     try {
-      user.tablename = user.classname + user.department + "II";
       let res = await axios.post("/api/user/signup", user);
       alert(res.data.message);
     } catch (e) {
-      alert("Unable to create User");
+      console.error("Error creating user:", e);
+      alert("Unable to create User. Please check the console for more details.");
     }
   };
+
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit}
-        className=" w-full flex h-screen py-44 flex-col circle-grad justify-center items-center"
-      >
-        <h1 className=" font-sans font-extrabold text-3xl">Sign Up Here</h1>
-        <label htmlFor="id" className="font-extrabold font-sans">
-          UserID
-        </label>
-        <input
-          type="text"
-          placeholder="Type here"
-          className="input w-full max-w-xl"
-          name="id"
-          id="id"
-          onChange={(e) => setUser({ ...user, id: e.target.value })}
-          required={true}
-        />
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-lg">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <h1 className="text-2xl font-bold text-center text-gray-800">Sign Up Here</h1>
+          
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First Name</label>
+              <input type="text" name="first_name" id="first_name" onChange={(e) => setUser({ ...user, first_name: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder="Enter first name" required />
+            </div>
 
-        <label htmlFor="email" className="font-extrabold font-sans">
-          Email
-        </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-          className="input w-full  max-w-xl"
-          placeholder="enter email"
-          required={true}
-        />
+            <div>
+              <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last Name</label>
+              <input type="text" name="last_name" id="last_name" onChange={(e) => setUser({ ...user, last_name: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder="Enter last name" required />
+            </div>
+          </div>
 
-        <label htmlFor="username" className="font-extrabold font-sans">
-          Username
-        </label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          onChange={(e) => setUser({ ...user, username: e.target.value })}
-          className="input w-full  max-w-xl"
-          placeholder="enter name"
-          required={true}
-        />
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+            <input type="email" name="email" id="email" onChange={(e) => setUser({ ...user, email: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder="Enter email" required />
+          </div>
 
-        <label htmlFor="password" className="font-extrabold font-sans">
-          Password
-        </label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-          className="input w-full max-w-xl"
-          placeholder="enter password"
-          required={true}
-        />
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" name="password" id="password" onChange={(e) => setUser({ ...user, password: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder="Enter password" required />
+          </div>
 
-        <label htmlFor="class" className="font-extrabold font-sans">
-          Class
-        </label>
-        <select
-          name="classname"
-          id="class"
-          onChange={(e) => setUser({ ...user, classname: e.target.value })}
-          defaultValue="I"
-          className="select w-full  max-w-xl"
-          required={true}
-        >
-          <option value="First">I</option>
-          <option value="Second">II</option>
-          <option value="Third">III</option>
-        </select>
-        {/* <input type="text" name="classname" id="class" onChange={(e) => setUser({ ...user, classname: e.target.value })} /> */}
+          <div>
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>
+            <select name="role" id="role" onChange={(e) => setUser({ ...user, role: e.target.value })} defaultValue="student" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50">
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+            </select>
+          </div>
 
-        <label htmlFor="department" className="font-extrabold font-sans">
-          Department
-        </label>
-        <select
-          name="department"
-          id="class"
-          onChange={(e) => setUser({ ...user, department: e.target.value })}
-          defaultValue="CS"
-          className="select w-full  max-w-xl"
-        >
-          <option value="CS">CS</option>
-          {/* <option value="IT">IT</option> */}
-          {/* <option value="DA">DA</option> */}
-        </select>
-        {/* <input type="text" name="department" id="department" onChange={(e) => setUser({ ...user, department: e.target.value })} /> */}
+          {user.role === "student" && (
+            <>
+              <div>
+                <label htmlFor="admission_number" className="block text-sm font-medium text-gray-700">Admission Number</label>
+                <input type="text" name="admission_number" id="admission_number" onChange={(e) => setUser({ ...user, admission_number: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder="Enter admission number" required />
+              </div>
 
-        <label htmlFor="role" className="font-extrabold font-sans">
-          Role
-        </label>
-        <select
-          name="role"
-          id="class"
-          onChange={(e) => setUser({ ...user, role: e.target.value })}
-          defaultValue="student"
-          className="select w-full  max-w-xl"
-        >
-          <option value="student">Student</option>
-          <option value="teacher">Teacher</option>
-        </select>
+              <div>
+                <label htmlFor="grade_level" className="block text-sm font-medium text-gray-700">Grade Level/Class</label>
+                <input type="text" name="grade_level" id="grade_level" onChange={(e) => setUser({ ...user, grade_level: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder="Enter grade level/class" required />
+              </div>
 
-        <button
-          type="submit"
-          className="btn w-full max-w-xl m-5 bg-fuchsia-500 border-0"
-        >
-          Submit
-        </button>
-      </form>
+              <div>
+                <label htmlFor="date_of_birth" className="block text-sm font-medium text-gray-700">Date of Birth</label>
+                <input type="date" name="date_of_birth" id="date_of_birth" onChange={(e) => setUser({ ...user, date_of_birth: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" required />
+              </div>
+            </>
+          )}
+
+          {user.role === "teacher" && (
+            <>
+              <div>
+                <label htmlFor="employee_id" className="block text-sm font-medium text-gray-700">Employee ID</label>
+                <input type="text" name="employee_id" id="employee_id" onChange={(e) => setUser({ ...user, employee_id: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder="Enter employee ID" required />
+              </div>
+
+              <div>
+                <label htmlFor="department" className="block text-sm font-medium text-gray-700">Department</label>
+                <input type="text" name="department" id="department" onChange={(e) => setUser({ ...user, department: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder="Enter department" required />
+              </div>
+            </>
+          )}
+
+          <button type="submit" className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
+        </form>
+      </div>
     </div>
   );
 }

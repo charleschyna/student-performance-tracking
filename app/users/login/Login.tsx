@@ -25,18 +25,22 @@ function Login() {
     }
   }
   return (
-    <div>
-      <div>
-        <form onSubmit={handleSubmit} className=" w-full flex h-screen py-44 flex-col  justify-center items-center circle-two">
-          <h1 className=' font-sans font-extrabold text-4xl'>Login Page</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <h1 className='text-2xl font-bold text-center'>Login Page</h1>
 
-          <label htmlFor="email" className='font-extrabold font-sans'>Email</label>
-          <input type="email" name="email" id="email" onChange={(e) => setUser({ ...user, email: e.target.value })} className="input w-full max-w-xl" placeholder='enter email' />
+          <div>
+            <label htmlFor="email" className='block text-sm font-medium text-gray-700'>Email</label>
+            <input type="email" name="email" id="email" onChange={(e) => setUser({ ...user, email: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder='Enter email' />
+          </div>
 
-          <label htmlFor="password" className='font-extrabold font-sans'>Password</label>
-          <input type="password" name="password" id="password" onChange={(e) => setUser({ ...user, password: e.target.value })} className="input w-full max-w-xl" placeholder='enter password' />
+          <div>
+            <label htmlFor="password" className='block text-sm font-medium text-gray-700'>Password</label>
+            <input type="password" name="password" id="password" onChange={(e) => setUser({ ...user, password: e.target.value })} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-50" placeholder='Enter password' />
+          </div>
 
-          <button type="submit" className='btn w-full max-w-xl m-5 bg-indigo-600 border-0'>Submit</button>
+          <button type="submit" className='w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>Submit</button>
         </form>
       </div>
     </div>
